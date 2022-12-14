@@ -3,13 +3,16 @@
 import { FormEvent, useState } from "react";
 import { v4 as uuid } from "uuid";
 import { Message } from "../typings";
-import useSwr from "swr";
+import useSWR from "swr";
+import fetcher from "../utils/fetchMessages";
 
 function MessageInput() {
   const [input, setInput] = useState("");
-  const {data,error,mutate}=useSwr("/api/getMessages",fetcher)
-  
-  const addMessage = (e: FormEvent<HTMLFormElement>) => {
+  const { data: messages, error, mutate } = useSWR("/api/getMessages", fetcher);
+
+  console.log(messages);
+
+  const addMessage = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!input) return;
     const id = uuid();
@@ -25,17 +28,20 @@ function MessageInput() {
       // random:"asda"  random property will not be accepted by the Message type as it is not defined in the Message type in .d.ts file
     };
     const uploadMessageToUpstash = async () => {
-      const res = await fetch("/api/addMessage", {
+      const data = await fetch("/api/addMessage", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ message }), //making an object so that we can access it using req.body.message in the api route
-      });
-      const data = await res.json();
-      console.log(data);
+      }).then((res) => res.json());
+      // console.log(data);
+      return [data.message, ...messages!];
     };
-    uploadMessageToUpstash();
+    await mutate(uploadMessageToUpstash, {
+      optimisticData: [message, ...messages!],
+      rollbackOnError: true,
+    });
   };
 
   return (
