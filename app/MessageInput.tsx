@@ -46,7 +46,7 @@ function MessageInput() {
 
   return (
     <form
-      className="flex fixed bottom-0 px-10 py-3 space-x-2 w-full"
+      className="flex fixed bottom-0 px-10 py-3 space-x-2 w-full bg-white"
       onSubmit={addMessage}
     >
       <input
