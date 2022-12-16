@@ -15,12 +15,15 @@ function MessageList() {
     //subscribe to the messages channel
     //Before your web app can receive the event you publish, your web app needs to subscribe to the messages channel. Do this with pusher.subscribe
     channel.bind("new-message", async (data: Message) => {
-      mutate(fetcher, {
-        optimisticData: [data, ...messages!],
-        //optimisticData is the data that will be shown to the user before the data is actually fetched from the server and is used to make the UI feel more responsive to the user
-        rollbackOnError: true,
-        //rollbackOnError is used to rollback the optimisticData if there is an error
-      });
+      if (!messages) mutate(fetcher); //causes error if messages is null
+      else {
+        mutate(fetcher, {
+          optimisticData: [data, ...messages!],
+          //optimisticData is the data that will be shown to the user before the data is actually fetched from the server and is used to make the UI feel more responsive to the user
+          rollbackOnError: true,
+          //rollbackOnError is used to rollback the optimisticData if there is an error
+        });
+      }
     });
   }, [messages, mutate, clientPusher]);
 
