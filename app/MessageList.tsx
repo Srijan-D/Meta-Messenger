@@ -16,7 +16,7 @@ function MessageList() {
     //Before your web app can receive the event you publish, your web app needs to subscribe to the messages channel. Do this with pusher.subscribe
     channel.bind("new-message", async (data: Message) => {
       if (messages?.find((message) => message.id === data.id)) return;
-      //if u r the sender no need to update the cache as the message 
+      //if u r the sender no need to update the cache as the message
       if (!messages) mutate(fetcher); //causes error if messages is null
       else {
         mutate(fetcher, {
@@ -27,6 +27,11 @@ function MessageList() {
         });
       }
     });
+    //now we need to close the connection and unsubscribe from the channel
+    return () => {
+      channel.unbind_all();
+      channel.unsubscribe();
+    };
   }, [messages, mutate, clientPusher]);
 
   return (
