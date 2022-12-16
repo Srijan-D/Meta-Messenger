@@ -6,7 +6,11 @@ import MessageComponent from "./MessageComponent";
 import { clientPusher } from "../pusher";
 import { Message } from "../typings";
 
-function MessageList() {
+type Props = {
+  initialMessages: Message[];
+};
+
+function MessageList({ initialMessages }: Props) {
   const { data: messages, error, mutate } = useSWR("/api/getMessages", fetcher);
 
   //useEffect for updating the list of messages
