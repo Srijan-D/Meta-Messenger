@@ -5,26 +5,52 @@ import { v4 as uuid } from "uuid";
 import { Message } from "../typings";
 import useSWR from "swr";
 import fetcher from "../utils/fetchMessages";
+import { unstable_getServerSession } from "next-auth/next";
+import { Session } from "inspector";
 
-function MessageInput() {
+type Props = {
+  session: Awaited<ReturnType<typeof unstable_getServerSession>>;
+};
+
+function MessageInput({ session }: Props) {
+  // console.log(session);
+
+  //destructuring the session object
+  // const { user } = session;
+  // //destructuring the user object
+  // let { name, email, image } = user;
+  // // console.log(name, email, image);
+  // //stringifying each of the properties of the user object
+  // name = JSON.stringify(user.name);
+  // email = JSON.stringify(user.email);
+  // image = JSON.stringify(user.image);
+  // console.log(name, email, image);
+
+  /*session:{
+    user:{
+      name:
+    }
+  }
+  */
+
   const [input, setInput] = useState("");
   const { data: messages, error, mutate } = useSWR("/api/getMessages", fetcher);
-
-  console.log(messages);
 
   const addMessage = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!input) return;
-    const id = uuid();
+    if (!session) return;
+
     const messageInput = input;
+    const id = uuid();
     setInput("");
     const message: Message = {
       id,
       message: messageInput,
       created_at: Date.now(),
-      username: "Srijan-D",
-      profilePic: "https://links.papareact.com/jne",
-      email: "abc@gmail.com",
+      username: session.user.name!,
+      profilePic: session.user.image!,
+      email: session.user.email!,
       // random:"asda"  random property will not be accepted by the Message type as it is not defined in the Message type in .d.ts file
     };
     const uploadMessageToUpstash = async () => {
@@ -51,8 +77,7 @@ function MessageInput() {
     >
       <input
         type="text"
-        name=""
-        id=""
+        disabled={!session}
         value={input}
         onChange={(e) => {
           setInput(e.target.value);
