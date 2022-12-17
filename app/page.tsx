@@ -11,14 +11,12 @@ async function page() {
     `${process.env.VERCEL_URL || "http://localhost:3000"}/api/getMessages`
   ).then((res) => res.json());
   const messages: Message[] = data.messages;
+  // const session = await unstable_getServerSession(authOptions);
   const session = await unstable_getServerSession();
 
-  // console.log(data);
   return (
     <Providers session={session}>
       <main>
-        {/* messages */}
-        {/* message input */}
         <MessageList initialMessages={messages} />
         <MessageInput session={session} />
       </main>
