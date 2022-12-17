@@ -1,27 +1,16 @@
-# Next.js + Tailwind CSS Example
+Realtime Meta Messenger😍 with Redis(in-memory data structure)
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.2)](https://tailwindcss.com/blog/tailwindcss-v3-2) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+CAUTION:⚠⚠ This app uses a lot of experimental features of NEXT13 like unstable_getServerSession  from "next-auth/next" (for establishing the session) When calling from server-side i.e. in API routes or in getServerSideProps, using this function instead of getSession to retrieve the session object as it drastically reduces response time when used over getSession
 
-## Deploy your own
+Therefore these features are experimental and may be removed or changed in the future.
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
+Next-auth js for authentication using your meta/facebook login password
 
-## How to use
+Usage of swr and optimistic data for instant caching, fetching data.
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+Mutate for updating the cache  
 
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-```
+Upstash is a Serverless Data Platform with Redis and Kafka support.Its features make it the ideal data solution for Vercel. worldwide low latency Price per request
 
-```bash
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
-```
-
-```bash
-pnpm create next-app --example with-tailwindcss with-tailwindcss-app
-```
-
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+For establishing the real time connection across devices Pusher was used which is a better option than using hte standard websocket library as it becomes quite easy to manage the entire application using it 
