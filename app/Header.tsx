@@ -1,23 +1,23 @@
 import Image from "next/image";
 import Link from "next/link";
 import LogoutButton from "./LogoutButton";
-function Header() {
-  const session = true;
-
+import { unstable_getServerSession } from "next-auth/next";
+async function Header() {
+  const session = await unstable_getServerSession();
   if (session)
-    return (
+    return (  
       <header className=" bg-yellow-50 sticky top-0 z-50 flex justify-between items-center p-7 shadow-sm">
         <div className="flex flex-col items-center space-y-5">
           <div className="flex space-x-2 items-center">
             <Image
-              src="https://links.papareact.com/jne"
+              src={session.user?.image!}
               height={10}
               width={50}
               alt="Profile Pic"
             />
             <div>
               <p className="text-blue-400">Logged in as</p>
-              <p className="font-bold text-lg">Srijan Dubey</p>
+              <p className="font-bold text-lg">{session.user?.name}</p>
             </div>
           </div>
         </div>
@@ -25,7 +25,7 @@ function Header() {
       </header>
     );
   return (
-    <header className=" bg-black sticky top-0 z-50 flex justify-center items-center p-7 shadow-sm">
+    <header className=" sticky top-0 z-50 flex justify-center items-center p-7 shadow-sm">
       <div className="flex flex-col items-center space-y-5">
         <div className="flex space-x-2 items-center">
           <Image
