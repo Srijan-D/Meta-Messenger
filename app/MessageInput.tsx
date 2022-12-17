@@ -13,25 +13,6 @@ type Props = {
 };
 
 function MessageInput({ session }: Props) {
-  // console.log(session);
-
-  //destructuring the session object
-  // const { user } = session;
-  // //destructuring the user object
-  // let { name, email, image } = user;
-  // // console.log(name, email, image);
-  // //stringifying each of the properties of the user object
-  // name = JSON.stringify(user.name);
-  // email = JSON.stringify(user.email);
-  // image = JSON.stringify(user.image);
-  // console.log(name, email, image);
-
-  /*session:{
-    user:{
-      name:
-    }
-  }
-  */
 
   const [input, setInput] = useState("");
   const { data: messages, error, mutate } = useSWR("/api/getMessages", fetcher);
@@ -51,7 +32,7 @@ function MessageInput({ session }: Props) {
       username: session.user.name!,
       profilePic: session.user.image!,
       email: session.user.email!,
-      // random:"asda"  random property will not be accepted by the Message type as it is not defined in the Message type in .d.ts file
+     
     };
     const uploadMessageToUpstash = async () => {
       const data = await fetch("/api/addMessage", {
@@ -59,9 +40,9 @@ function MessageInput({ session }: Props) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ message }), //making an object so that we can access it using req.body.message in the api route
+        body: JSON.stringify({ message }), 
       }).then((res) => res.json());
-      // console.log(data);
+      
       return [data.message, ...messages!];
     };
     await mutate(uploadMessageToUpstash, {
