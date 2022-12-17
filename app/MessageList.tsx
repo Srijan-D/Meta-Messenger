@@ -13,7 +13,6 @@ type Props = {
 function MessageList({ initialMessages }: Props) {
   const { data: messages, error, mutate } = useSWR("/api/getMessages", fetcher);
 
-  //useEffect for updating the list of messages
   useEffect(() => {
     const channel = clientPusher.subscribe("messages");
     //subscribe to the messages channel
@@ -40,7 +39,7 @@ function MessageList({ initialMessages }: Props) {
 
   return (
     <div className="space-y-5 px-5 pt-8 pb-32 max-w-2xl mx-auto">
-      {messages?.map((message) => (
+      {(messages || initialMessages)?.map((message) => (
         <MessageComponent key={message.id} message={message} />
       ))}
     </div>
