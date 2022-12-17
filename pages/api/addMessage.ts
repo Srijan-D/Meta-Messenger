@@ -31,5 +31,6 @@ export default async function handler(
   await redis.hset("messages", message.id, JSON.stringify(newMessage));
   //Pusher
   serverPusher.trigger("messages", "new-message", newMessage);
+  //channel: string , event: string, data: any
   res.status(200).json({ message: newMessage });
 }
