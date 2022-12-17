@@ -3,12 +3,12 @@ import { getProviders } from "next-auth/react";
 import { signIn } from "next-auth/react";
 type Props = {
   providers: Awaited<ReturnType<typeof getProviders>>;
-  //awaited as it returns a promise
+  //was a good way in order to find the type definition
 };
 
 function SignInComponent({ providers }: Props) {
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center items-center">
       {Object.values(providers!).map((provider) => (
         <div key={provider.name}>
           <button
