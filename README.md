@@ -1,4 +1,4 @@
-Realtime Meta Messenger😍 with Redis(in-memory data structure)
+Realtime Meta Messenger😍 with Redis Next-Auth NextJS13 (experimental features)
 
 CAUTION:⚠⚠ This app uses a lot of experimental features of NEXT13 like unstable_getServerSession  from "next-auth/next" (for establishing the session) When calling from server-side i.e. in API routes or in getServerSideProps, using this function instead of getSession to retrieve the session object as it drastically reduces response time when used over getSession
 
