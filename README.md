@@ -1,12 +1,14 @@
 Realtime Meta Messenger😍 with Redis Next-Auth NextJS13 (experimental features)
 
+Styling and UI was implemented using tailwindCSS as it compiles at build time therefore not affecting the SEO 
+
 CAUTION:⚠⚠ This app uses a lot of experimental features of NEXT13 like unstable_getServerSession  from "next-auth/next" (for establishing the session) 
 When calling from server-side i.e. in API routes or in getServerSideProps, using this function instead of getSession to retrieve the session object drastically reduces response time when used over getSession
 
 Therefore these features are experimental and may be removed or changed in the future.
 
 
-Next-auth js for authentication using your meta/facebook login password
+Next-auth js for authentication using your meta/facebook username password
 
 Usage of swr and optimistic data for instant caching, fetching data.
 
